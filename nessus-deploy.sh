@@ -9,12 +9,12 @@ if [[ -z $key ]] || ! [[ $key =~ [A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}
     echo "Usage: nessus-deploy.sh [Nessus License Key]"
     exit 1
 else
-    service nessusd stop
+    systemctl stop nessusd.service
     $nessuscli fix --reset
     $nessuscli fetch --register $key
     $nessuscli update --all
     $nessuscli adduser
-    service nessusd start
+    systemctl start nessusd.service
     exit 0
 fi
 }
